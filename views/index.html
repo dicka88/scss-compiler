@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>SCSS compiler</title>
+		<link rel="stylesheet" href="/css/tailwind.css" />
+		<link
+			href="https://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			#css-editor {
+				height: 100% !important;
+				width: 100% !important;
+			}
+			.convert {
+				right: 0;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				position: absolute;
+				z-index: 4;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.convert > .convert-button {
+				border-radius: 50px;
+				background-color: rgb(45, 112, 214);
+				padding: 1em;
+				border: none;
+				width: 50px;
+				height: 50px;
+				transition: cubic-bezier(0.55, 0.085, 0.68, 0.53) 0.3s;
+			}
+			.convert-button:hover {
+				transform: scale(1.2);
+			}
+			.convert-button:active {
+				transform: translate(10px, 5px);
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="bg-indigo-900 text-center py-2 lg:px-2">
+				<div
+					class="p-2 bg-indigo-500 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+					role="alert"
+				>
+					<span
+						class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+						>New</span
+					>
+					<span class="font-semibold mr-2 text-left flex-auto"
+						>Get the coolest t-shirts from our brand new store</span
+					>
+					<svg
+						class="fill-current opacity-75 h-4 w-4"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+					>
+						<path
+							d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"
+						/>
+					</svg>
+				</div>
+			</div>
+			<nav class="flex items-center justify-between flex-wrap bg-teal-700 p-6">
+				<div class="flex items-center flex-shrink-0 text-white mr-6">
+					<svg
+						class="fill-current h-8 w-8 mr-2"
+						width="54"
+						height="54"
+						viewBox="0 0 54 54"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"
+						/>
+					</svg>
+					<span class="font-semibold text-xl tracking-tight">Tailwind CSS</span>
+				</div>
+				<div class="block lg:hidden">
+					<button
+						class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+					>
+						<svg
+							class="fill-current h-3 w-3"
+							viewBox="0 0 20 20"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<title>Menu</title>
+							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+						</svg>
+					</button>
+				</div>
+				<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+					<div class="text-sm lg:flex-grow">
+						<a
+							href="#responsive-header"
+							class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+						>
+							Docs
+						</a>
+						<a
+							href="#responsive-header"
+							class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+						>
+							Examples
+						</a>
+						<a
+							href="#responsive-header"
+							class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+						>
+							Blog
+						</a>
+					</div>
+					<div>
+						<a
+							href="#"
+							class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+							>Download</a
+						>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="flex mb-4" style="position: relative;">
+				<div class="w-1/2 bg-gray-200 h-screen p-3">
+					<div id="css-editor"></div>
+				</div>
+				<div class="w-1/2 bg-gray-900 h-screen p-3 text-white">a</div>
+				<div class="convert">
+					<button class="convert-button text-white">
+						>
+					</button>
+				</div>
+			</div>
+		</main>
+		<script defer src="https://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				YUI().use("aui-ace-editor", function (Y) {
+					new Y.AceEditor({
+						boundingBox: "#css-editor",
+						mode: "css",
+						height: "100%",
+						width: "100%",
+					}).render();
+				});
+			});
+		</script>
+	</body>
+</html>

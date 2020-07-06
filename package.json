@@ -1,0 +1,33 @@
+{
+	"name": "scss-compiler",
+	"version": "1.0.0",
+	"description": "Compiler online for scss/sass to css",
+	"main": "app.js",
+	"scripts": {
+		"start": "npm run build:css & nodemon app.js",
+		"build:css": "postcss src/assets/tailwind.css -o public/css/tailwind.css",
+		"test": "echo test"
+	},
+	"keywords": [
+		"scss",
+		"compiler",
+		"sass",
+		"css",
+		"express"
+	],
+	"author": "dickaismaji",
+	"license": "MIT",
+	"dependencies": {
+		"@fullhuman/postcss-purgecss": "^2.3.0",
+		"autoprefixer": "^9.8.4",
+		"body-parser": "^1.19.0",
+		"cssnano": "^4.1.10",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"morgan": "^1.10.0",
+		"node-sass": "^4.14.1",
+		"nodemon": "^2.0.4",
+		"postcss": "^7.0.32",
+		"tailwindcss": "^1.4.6"
+	}
+}
