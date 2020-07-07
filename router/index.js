@@ -8,13 +8,14 @@ routes.route("/").get(indexController.index);
 
 routes.route("/scss-css").post((req, res) => {
 	const stringSass = req.body.string;
+	console.log(stringSass);
 
 	if (!stringSass) return res.status(404).send("not found");
 
 	try {
 		const compile = sass.renderSync({
 			data: stringSass,
-			indentedSyntax: true,
+			indentedSyntax: false,
 			outputStyle: "expanded",
 		});
 		res.send(compile.css.toString());

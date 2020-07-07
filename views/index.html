@@ -6,9 +6,13 @@
 		<title>SCSS compiler</title>
 		<link rel="stylesheet" href="/css/tailwind.css" />
 		<link
-			href="https://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css"
 			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/a11y-dark.min.css"
 		/>
+		<!-- <link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/dark.min.css"
+		/> -->
 		<style>
 			#css-editor {
 				height: 100% !important;
@@ -20,25 +24,25 @@
 				top: 0;
 				bottom: 0;
 				position: absolute;
-				z-index: 4;
-				display: flex;
-				justify-content: center;
-				align-items: center;
+				margin: auto;
+				width: 50px;
+				height: 50px;
 			}
 			.convert > .convert-button {
 				border-radius: 50px;
 				background-color: rgb(45, 112, 214);
+				margin-top: -10em;
 				padding: 1em;
 				border: none;
 				width: 50px;
 				height: 50px;
-				transition: cubic-bezier(0.55, 0.085, 0.68, 0.53) 0.3s;
+				transition: cubic-bezier(0.55, 0.085, 0.68, 0.53) 0.1s;
 			}
 			.convert-button:hover {
-				transform: scale(1.2);
+				background-color: rgb(26, 98, 161);
 			}
 			.convert-button:active {
-				transform: translate(10px, 5px);
+				transform: scale(0.9);
 			}
 		</style>
 	</head>
@@ -129,10 +133,24 @@
 		</header>
 		<main>
 			<div class="flex mb-4" style="position: relative;">
-				<div class="w-1/2 bg-gray-200 h-screen p-3">
-					<div id="css-editor"></div>
+				<div class="w-1/2 bg-gray-200 h-screen">
+					<!-- <div id="scss-editor"> -->
+					<pre>
+							<code id="scss">
+								span {
+									color: red;
+								}
+							</code>
+						</pre>
+					<!-- </div> -->
 				</div>
-				<div class="w-1/2 bg-gray-900 h-screen p-3 text-white">a</div>
+				<div class="w-1/2 bg-gray-900 h-screen text-white">
+					<div id="css-editor">
+						<pre>
+							<code id="css"></code>
+						</pre>
+					</div>
+				</div>
 				<div class="convert">
 					<button class="convert-button text-white">
 						>
@@ -140,18 +158,65 @@
 				</div>
 			</div>
 		</main>
-		<script defer src="https://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
-				YUI().use("aui-ace-editor", function (Y) {
-					new Y.AceEditor({
-						boundingBox: "#css-editor",
-						mode: "css",
-						height: "100%",
-						width: "100%",
-					}).render();
-				});
+				document
+					.querySelector(".convert-button")
+					.addEventListener("click", fetchCss);
 			});
+		</script>
+		<script type="module">
+			import { CodeJar } from "https://medv.io/codejar/codejar.js";
+			hljs.initHighlightingOnLoad();
+			hljs.initLineNumbersOnLoad();
+			let callback = (element) => {
+				const code = element.textContent;
+				const coloredCode = hljs.highlight("scss", code).value;
+
+				element.innerHTML = coloredCode;
+				// hljs.lineNumbersBlock(element);
+			};
+
+			let jar = CodeJar(document.querySelector("#scss"), callback, {
+				tab: " ".repeat(2), // default is '\t'
+				indentOn: /[(\[]$/, // default is /{$/
+			});
+
+			let deb = debounce(fetchCss, 1000);
+			jar.onUpdate((code) => {
+				deb();
+			});
+		</script>
+		<script>
+			async function fetchCss() {
+				const data = await fetch("/api/scss-css", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						string: document.querySelector("#scss").textContent,
+					}),
+				});
+				if (!data) return;
+				const html = await data.text();
+				console.log(html);
+
+				document.querySelector("#css").innerHTML = hljs.highlight(
+					"css",
+					html
+				).value;
+			}
+
+			function debounce(callback, time) {
+				var timeout;
+				return function () {
+					clearTimeout(timeout);
+					timeout = setTimeout(callback, time);
+				};
+			}
 		</script>
 	</body>
 </html>

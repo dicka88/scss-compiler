@@ -10,6 +10,7 @@ const app = express();
  */
 const indexRouter = require("./router/index");
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
