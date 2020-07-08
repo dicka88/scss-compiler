@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			SCSS compiler
+		</title>
+		<link rel="stylesheet" href="/css/tailwind.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/a11y-dark.min.css" />
+		<style>
+			#css-editor,
+			#scss-editor {
+				height: 100% !important;
+				width: 100% !important;
+				font-size: 17px;
+			}
+			.convert {
+				right: 0;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				position: absolute;
+				margin: auto;
+				width: 50px;
+				height: 50px;
+				z-index: 5;
+			}
+			.convert > .convert-button {
+				border-radius: 50px;
+				background-color: rgb(45, 112, 214);
+				margin-top: -10em;
+				padding: 1em;
+				border: none;
+				width: 50px;
+				height: 50px;
+				transition: cubic-bezier(0.55, 0.085, 0.68, 0.53) 0.1s;
+			}
+			.convert-button:hover {
+				background-color: rgb(26, 98, 161);
+			}
+			.convert-button:active {
+				transform: scale(0.9);
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<nav class="flex items-center justify-between flex-wrap bg-teal-700 p-6">
+				<div class="flex items-center flex-shrink-0 text-white mr-6">
+					<svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"
+						/>
+					</svg>
+					<span class="font-semibold text-xl tracking-tight">SCSS Compiler</span>
+				</div>
+				<div class="block lg:hidden">
+					<button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+						<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<title>
+								Menu
+							</title>
+							<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+						</svg>
+					</button>
+				</div>
+				<div class="w-full block sm:hidden flex-grow lg:flex lg:items-center lg:w-auto">
+					<div class="text-sm lg:flex-grow">
+						<a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+							SCSS-CSS
+						</a>
+						<a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+							CSS-SCSS
+						</a>
+						<a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+							SASS-CSS
+						</a>
+					</div>
+					<div>
+						<a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+							Github
+						</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="flex mb-4" style="position: relative;">
+				<div class="w-1/2 mr-1 bg-gray-900 h-screen">
+					<div id="css-editor"></div>
+				</div>
+				<div class="w-1/2 ml-1 bg-gray-200 h-screen">
+					<div id="scss-editor"></div>
+				</div>
+				<div class="convert">
+					<button class="convert-button text-white">
+						>
+					</button>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="w-full bg-teal-400 p-8">
+				<div class="sm:flex mb-4">
+					<div class="sm:w-1/4 h-auto">
+						<div class="text-orange mb-2">Orange</div>
+						<ul class="list-reset leading-normal">
+							<li class="hover:text-orange text-grey-darker">One</li>
+							<li class="hover:text-orange text-grey-darker">Two</li>
+							<li class="hover:text-orange text-grey-darker">Three</li>
+							<li class="hover:text-orange text-grey-darker">Four</li>
+						</ul>
+					</div>
+					<div class="sm:w-1/4 h-auto sm:mt-0 mt-8">
+						<div class="text-blue mb-2">Blue</div>
+						<ul class="list-reset leading-normal">
+							<li class="hover:text-blue text-grey-darker">One</li>
+							<li class="hover:text-blue text-grey-darker">Two</li>
+							<li class="hover:text-blue text-grey-darker">Three</li>
+						</ul>
+
+						<div class="text-blue-light mb-2 mt-4">Blue-light</div>
+						<ul class="list-reset leading-normal">
+							<li class="hover:text-blue-light text-grey-darker">One</li>
+							<li class="hover:text-blue-light text-grey-darker">Two</li>
+							<li class="hover:text-blue-light text-grey-darker">Three</li>
+						</ul>
+					</div>
+					<div class="sm:w-1/4 h-auto sm:mt-0 mt-8">
+						<div class="text-green-dark mb-2">Green-dark</div>
+						<ul class="list-reset leading-normal">
+							<li class="hover:text-green-dark text-grey-darker">One</li>
+							<li class="hover:text-green-dark text-grey-darker">Two</li>
+							<li class="hover:text-green-dark text-grey-darker">Three</li>
+						</ul>
+
+						<div class="text-green-light mb-2 mt-4">Green-light</div>
+						<ul class="list-reset leading-normal">
+							<li class="hover:text-green-light text-grey-darker">One</li>
+							<li class="hover:text-green-light text-grey-darker">Two</li>
+							<li class="hover:text-green-light text-grey-darker">Three</li>
+						</ul>
+					</div>
+					<div class="sm:w-1/2 sm:mt-0 mt-8 h-auto">
+						<div class="text-red-light mb-2">Newsletter</div>
+						<p class="text-grey-darker leading-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur.</p>
+						<div class="mt-4 flex">
+							<input type="text" class="p-2 border border-grey-light round text-grey-dark text-sm h-auto" placeholder="Your email address" />
+							<button class="bg-orange text-white rounded-sm h-auto text-xs p-3">Subscribe</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
+		<script>
+			ace.require("ace/ext/language_tools");
+
+			var scsseditor = ace.edit("css-editor");
+			scsseditor.setTheme("ace/theme/monokai");
+			scsseditor.session.setMode("ace/mode/css");
+			scsseditor.setOptions({
+				enableBasicAutocompletion: false,
+				enableSnippets: false,
+				enableLiveAutocompletion: true,
+				tabSize: 2,
+			});
+
+			var csseditor = ace.edit("scss-editor");
+			csseditor.setReadOnly(true);
+			csseditor.setTheme("ace/theme/monokai");
+			csseditor.session.setMode("ace/mode/scss");
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				document.querySelector(".convert-button").addEventListener("click", fetchCss);
+			});
+		</script>
+		<script>
+			// listener
+			let debFetch = debounce(fetchCss, 1500);
+			scsseditor.session.on("change", function (delta) {
+				debFetch();
+			});
+
+			async function fetchCss() {
+				const stringScss = scsseditor.getValue();
+				if (!stringScss) return;
+
+				const data = await fetch("/api/css-scss", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						string: stringScss,
+					}),
+				});
+				if (!data) return;
+				const html = await data.text();
+				console.log(html);
+
+				csseditor.setValue(html, 1);
+			}
+
+			function debounce(callback, time) {
+				var timeout;
+				return function () {
+					clearTimeout(timeout);
+
+					timeout = setTimeout(callback, time);
+				};
+			}
+		</script>
+	</body>
+</html>
