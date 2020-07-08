@@ -109,8 +109,21 @@
 			</nav>
 		</header>
 		<main>
+			<div class="flex xl:hidden md:hidden lg:hidden mt-4 mb-1">
+				<ul class="flex border-b">
+					<li class="mr-1">
+						<a href="" class="bg-blue-700 inline-block border-1 border-t border-r rounded-t py-2 px-4 text-white font-semibold">SCSS</a>
+					</li>
+					<li class="mr-1">
+						<a href="" class="bg-white inline-block border-1 rounded-t py-2 px-4">CSS</a>
+					</li>
+					<li class="mr-1">
+						<a href="" class="bg-white inline-block border-1 rounded-t py-2 px-4">DEMO</a>
+					</li>
+				</ul>
+			</div>
 			<div class="flex mb-4" style="position: relative;">
-				<div class="w-1/2 mr-1 bg-gray-200 h-screen scss-wrapper">
+				<div class="w-1/2 sm:w-full mr-1 bg-gray-200 h-screen scss-wrapper">
 					<div class="flex px-3 py-1 justify-between bg-white">
 						<div style="margin: auto 0;">
 							<img src="./images/sass-icon.svg" style="height: 20px;" alt="" />
@@ -125,7 +138,7 @@
 					</div>
 					<div id="scss-editor" class="fullscreen"></div>
 				</div>
-				<div class="w-1/2 ml-1 bg-gray-900 h-screen css-wrapper">
+				<div class="w-1/2 sm:w-full sm:hidden ml-1 bg-gray-900 h-screen css-wrapper">
 					<div class="flex px-3 py-1 justify-between bg-white">
 						<div style="margin: auto 0;" class="flex justify-between">
 							<img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
@@ -139,7 +152,7 @@
 					</div>
 					<div id="css-editor"></div>
 				</div>
-				<div class="convert">
+				<div class="convert sm:hidden">
 					<button class="convert-button text-white">
 						<i class="material-icons">play_arrow</i>
 					</button>
@@ -191,10 +204,6 @@
 					<div class="sm:w-1/2 sm:mt-0 mt-8 h-auto">
 						<div class="text-red-light mb-2">Newsletter</div>
 						<p class="text-grey-darker leading-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur.</p>
-						<div class="mt-4 flex">
-							<input type="text" class="p-2 border border-grey-light round text-grey-dark text-sm h-auto" placeholder="Your email address" />
-							<button class="bg-orange text-white rounded-sm h-auto text-xs p-3">Subscribe</button>
-						</div>
 					</div>
 				</div>
 			</div>
