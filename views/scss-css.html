@@ -12,7 +12,7 @@
 		<meta name="robots" content="index, follow" />
 		<meta name="og:locale" content="en_US" />
 		<meta name="type" content="tools" />
-		<meta name="theme" content="#e8e8e8" />
+		<meta name="theme" content="#b83280" />
 		<link rel="stylesheet" href="/css/tailwind.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/a11y-dark.min.css" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -122,23 +122,29 @@
 			</nav>
 		</header>
 		<main>
-			<div class="flex justify-between hidden xs:block mt-4 mb-1">
+			<div class="flex justify-between items-center hidden xs:block mt-4 mb-1">
 				<div class="relative">
 					<ul id="editor-switcher" class="flex border-b">
 						<li class="mr-1">
-							<a href="#" id="editor-switcher_scss" onclick="editor_switcher('scss')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white bg-pink-700 text-white font-semibold">SCSS</a>
+							<a
+								href="#"
+								id="editor-switcher_scss"
+								onclick="editor_switcher('scss')"
+								class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white bg-pink-700 text-white font-semibold"
+								>SCSS</a
+							>
 						</li>
 						<li class="mr-1">
 							<a href="#" id="editor-switcher_css" onclick="editor_switcher('css')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">CSS</a>
 						</li>
-					<li class="mr-1">
-						<a href="#" id="editor-switcher_demo" onclick="editor_switcher('')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">DEMO</a>
-					</li>
-					<button class="convert-button text-white absolute right-0 mr-2 w-10 h-10">
-						<i class="material-icons">play_arrow</i>
-					</button>
-				</ul>
-			</div>
+						<li class="mr-1">
+							<a href="#" id="editor-switcher_demo" onclick="editor_switcher('')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">DEMO</a>
+						</li>
+						<button class="convert-button text-white absolute right-0 mr-2 w-8 h-8">
+							<i class="material-icons">play_arrow</i>
+						</button>
+					</ul>
+				</div>
 			</div>
 			<div class="flex mb-4" style="position: relative;">
 				<div class="w-1/2 xs:w-full mr-1 xs:mr-0 bg-gray-200 h-screen scss-wrapper">
@@ -161,6 +167,7 @@
 						<div style="margin: auto 0;" class="flex justify-between">
 							<img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
 							<span class="pl-2">Result</span>
+							<span class="ml-4"><i class="fa fa-cog fa-spin"></i></span>
 						</div>
 						<div>
 							<button title="download"><i class="material-icons">file_download</i></button>
@@ -198,53 +205,63 @@
 					</div>
 					<div class="hover:shadow-outline rounded-md">
 						<div class="px-6 py-4">
-							<div class="font-bold text-xl mb-2">Diferrent between SCSS and SASS</div>
+							<div class="font-bold text-xl mb-2">Different between SCSS and SASS</div>
 							<p class="text-white text-base">
 								SASS is used when we need a original syntax, code syntax is not required for SCSS. SASS follows strict indentation, SCSS has no strict indentation. SASS has a loose syntax with white
-								space and no semicolons, the SCSS resembles more to CSS style and use of semicolons and braces are mandatory
+								space and no semicolons, the SCSS resembles more to CSS style and use of semicolons and braces are mandatory.
 							</p>
 						</div>
 						<div class="px-6 py-4">
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#different</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#sass</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#scss</span>
 						</div>
 					</div>
 					<div class="hover:shadow-outline rounded-md">
 						<div class="px-6 py-4">
 							<div class="font-bold text-xl mb-2">All Converter</div>
 							<p class="text-white text-base">
-								> SCSS to CSS
+								<a href="/" class="underline">> SCSS to CSS</a>
 							</p>
 							<p>
-								> SASS to CSS
+								<a href="/sass-css" class="underline">> SASS to CSS</a>
 							</p>
 							<p>
-								> CSS to SCSS
+								<a href="css-scss" class="underline">> CSS to SCSS</a>
 							</p>
 						</div>
 						<div class="px-6 py-4">
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#scss</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#sass</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#converter</span>
 						</div>
 					</div>
-					<div class="hover:shadow-outline rounded-md">
+					<div class="rounded-md">
 						<div class="px-6 py-4">
-							<div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-							<p class="text-white text-base">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-							</p>
+							<div class="font-bold text-xl mb-2">
+								<i class="fa fa-envelope"></i>
+								Hire me
+							</div>
+							<div class="flex justify-between">
+								<input
+									class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+									type="email"
+									placeholder="yourmail@mail.com"
+								/>
+								<button class="bg-pink-600 hover:bg-pink-700 text-white font-bold ml-3 py-2 px-4 rounded">
+									Subscribe
+								</button>
+							</div>
 						</div>
 						<div class="px-6 py-4">
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#nodejs</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#php</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#vue</span>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="flex justify-end bg-pink-900 text-white p-8">
+			<div class="flex justify-end bg-pink-900 text-white p-8 pr-12">
 				<span>Follow us on</span>
 				<a href="https://instagram.com/dickaismaji" target="_blank" rel="nofollow" class="ml-2" title="instagram">
 					<i class="fa fa-instagram"></i>
@@ -266,7 +283,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-beautify.js"></script>
-		<script src="./js/clipboard.min.js"></script>
 		<script>
 			ace.require("ace/ext/language_tools");
 
@@ -381,18 +397,18 @@
 				console.log(to);
 
 				let ahref = document.querySelectorAll("#editor-switcher li a");
-				ahref.forEach((e) => e.classList.remove("bg-pink-700","text-white","font-semibold"));
+				ahref.forEach((e) => e.classList.remove("bg-pink-700", "text-white", "font-semibold"));
 
 				switch (to) {
 					case "css":
 						document.querySelector(".css-wrapper").classList.remove("xs:hidden");
 						document.querySelector(".scss-wrapper").classList.add("xs:hidden");
-						document.querySelector('#editor-switcher #editor-switcher_css').classList.add("bg-pink-700","text-white","font-semibold")
-						csseditor.gotoLine(0,1)
+						document.querySelector("#editor-switcher #editor-switcher_css").classList.add("bg-pink-700", "text-white", "font-semibold");
+						csseditor.gotoLine(0, 1);
 						break;
 					case "scss":
 						document.querySelector(".css-wrapper").classList.add("xs:hidden");
-						document.querySelector('#editor-switcher #editor-switcher_scss').classList.add("bg-pink-700","text-white","font-semibold")
+						document.querySelector("#editor-switcher #editor-switcher_scss").classList.add("bg-pink-700", "text-white", "font-semibold");
 						document.querySelector(".scss-wrapper").classList.remove("xs:hidden");
 						break;
 					case "demo":
@@ -401,9 +417,9 @@
 				}
 			}
 
-			// navbar toggler 
+			// navbar toggler
 			function navbarToggle() {
-				document.querySelector('.navbar-item').classList.toggle('xs:hidden')
+				document.querySelector(".navbar-item").classList.toggle("xs:hidden");
 			}
 
 			// scss toolbar
