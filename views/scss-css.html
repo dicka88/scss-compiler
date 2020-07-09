@@ -6,6 +6,13 @@
 		<title>
 			SCSS compiler
 		</title>
+		<link rel="shortcut icon" href="images/icon-72x72.png" type="image/x-icon" />
+		<meta http-equiv="X-UA-Compatible" content="IE=7" />
+		<meta name="description" content="SCSS Compiler to CSS and reverse" />
+		<meta name="robots" content="index, follow" />
+		<meta name="og:locale" content="en_US" />
+		<meta name="type" content="tools" />
+		<meta name="theme" content="#e8e8e8" />
 		<link rel="stylesheet" href="/css/tailwind.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/a11y-dark.min.css" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -34,12 +41,11 @@
 				height: 50px;
 				z-index: 5;
 			}
-			.convert > .convert-button {
+			.convert-button {
 				border-radius: 50px;
 				background-color: rgb(45, 112, 214);
-				/* margin-top: -10em; */
 				display: flex;
-				padding: 1em;
+				justify-content: center;
 				border: none;
 				width: 50px;
 				height: 50px;
@@ -58,24 +64,28 @@
 				font-size: 20px;
 				vertical-align: middle;
 			}
+			img {
+				user-drag: none;
+				user-select: none;
+				-moz-user-select: none;
+				-webkit-user-drag: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+			}
 		</style>
 	</head>
 	<body>
 		<header>
-			<div class="flex bg-black justify-center text-white">
+			<div class="flex bg-black justify-center text-gray-200">
 				<span>Black lives matter</span>
 			</div>
-			<nav class="flex items-center justify-between flex-wrap bg-teal-700 p-6">
+			<nav class="flex items-center justify-between flex-wrap bg-pink-700 p-6">
 				<div class="flex items-center flex-shrink-0 text-white mr-6">
-					<svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"
-						/>
-					</svg>
+					<img src="/images/icon-72x72.png" style="width: auto; height: 50px; margin-top: -10px; margin-bottom: -10px;" class="mr-3" alt="" srcset="" />
 					<span class="font-semibold text-xl tracking-tight">SCSS Compiler</span>
 				</div>
 				<div class="block lg:hidden">
-					<button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+					<button onclick="navbarToggle()" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
 						<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 							<title>
 								Menu
@@ -84,7 +94,7 @@
 						</svg>
 					</button>
 				</div>
-				<div class="w-full sm:hidden flex-grow lg:flex lg:items-center lg:w-auto">
+				<div class="navbar-item w-full xs:hidden sm:hidden flex-grow lg:flex lg:items-center lg:w-auto">
 					<div class="text-sm lg:flex-grow">
 						<a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
 							SCSS-CSS
@@ -97,7 +107,10 @@
 						</a>
 					</div>
 					<div>
-						<a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+						<a
+							href="https://github.com/dicka88/scss-compiler"
+							class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+						>
 							<i class="fa fa-github"></i>
 							<span>Github</span>
 						</a>
@@ -109,21 +122,26 @@
 			</nav>
 		</header>
 		<main>
-			<div class="flex xl:hidden md:hidden lg:hidden mt-4 mb-1">
-				<ul class="flex border-b">
+			<div class="flex justify-between hidden xs:block mt-4 mb-1">
+				<div class="relative">
+					<ul id="editor-switcher" class="flex border-b">
+						<li class="mr-1">
+							<a href="#" id="editor-switcher_scss" onclick="editor_switcher('scss')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white bg-pink-700 text-white font-semibold">SCSS</a>
+						</li>
+						<li class="mr-1">
+							<a href="#" id="editor-switcher_css" onclick="editor_switcher('css')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">CSS</a>
+						</li>
 					<li class="mr-1">
-						<a href="" class="bg-blue-700 inline-block border-1 border-t border-r rounded-t py-2 px-4 text-white font-semibold">SCSS</a>
+						<a href="#" id="editor-switcher_demo" onclick="editor_switcher('')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">DEMO</a>
 					</li>
-					<li class="mr-1">
-						<a href="" class="bg-white inline-block border-1 rounded-t py-2 px-4">CSS</a>
-					</li>
-					<li class="mr-1">
-						<a href="" class="bg-white inline-block border-1 rounded-t py-2 px-4">DEMO</a>
-					</li>
+					<button class="convert-button text-white absolute right-0 mr-2 w-10 h-10">
+						<i class="material-icons">play_arrow</i>
+					</button>
 				</ul>
 			</div>
+			</div>
 			<div class="flex mb-4" style="position: relative;">
-				<div class="w-1/2 sm:w-full mr-1 bg-gray-200 h-screen scss-wrapper">
+				<div class="w-1/2 xs:w-full mr-1 xs:mr-0 bg-gray-200 h-screen scss-wrapper">
 					<div class="flex px-3 py-1 justify-between bg-white">
 						<div style="margin: auto 0;">
 							<img src="./images/sass-icon.svg" style="height: 20px;" alt="" />
@@ -138,7 +156,7 @@
 					</div>
 					<div id="scss-editor" class="fullscreen"></div>
 				</div>
-				<div class="w-1/2 sm:w-full sm:hidden ml-1 bg-gray-900 h-screen css-wrapper">
+				<div class="w-1/2 xs:w-full ml-1 xs:ml-0 bg-gray-900 h-screen css-wrapper xs:hidden">
 					<div class="flex px-3 py-1 justify-between bg-white">
 						<div style="margin: auto 0;" class="flex justify-between">
 							<img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
@@ -152,7 +170,7 @@
 					</div>
 					<div id="css-editor"></div>
 				</div>
-				<div class="convert sm:hidden">
+				<div class="convert xs:hidden">
 					<button class="convert-button text-white">
 						<i class="material-icons">play_arrow</i>
 					</button>
@@ -160,55 +178,89 @@
 			</div>
 		</main>
 		<footer>
-			<div class="w-full bg-teal-800 p-8 pt-12 pb-24 mt-10 text-white">
-				<div class="sm:flex mb-4">
-					<div class="sm:w-1/4 h-auto">
-						<div class="text-orange mb-2">Orange</div>
-						<ul class="list-reset leading-normal">
-							<li class="hover:text-orange text-grey-darker">One</li>
-							<li class="hover:text-orange text-grey-darker">Two</li>
-							<li class="hover:text-orange text-grey-darker">Three</li>
-							<li class="hover:text-orange text-grey-darker">Four</li>
-						</ul>
+			<div class="w-full bg-pink-900 p-8 pt-12 pb-10 mt-10 text-white">
+				<div class="grid grid-flow-col xs:grid-flow-row xs:grid-rows-1 sm:grid-rows-2 grid-rows-1 gap-4">
+					<div class="hover:shadow-outline rounded-md">
+						<div class="px-6 py-4">
+							<div class="font-bold text-xl mb-2">What is SCSS ?</div>
+							<p class="text-white text-base">
+								SCSS : Syntactically Awesome Style Sheet is the superset of CSS. SCSS is the more advanced version of CSS. SCSS was designed by Hampton Catlin and was developed by Chris Eppstein and
+								Natalie Weizenbaum.
+							</p>
+							<p>
+								<a href="https://sass-lang.com" target="_blank" rel="nofollow" class="underline">> More about SCSS</a>
+							</p>
+						</div>
+						<div class="px-6 py-4">
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#css</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#scss</span>
+						</div>
 					</div>
-					<div class="sm:w-1/4 h-auto sm:mt-0 mt-8">
-						<div class="text-blue mb-2">Blue</div>
-						<ul class="list-reset leading-normal">
-							<li class="hover:text-blue text-grey-darker">One</li>
-							<li class="hover:text-blue text-grey-darker">Two</li>
-							<li class="hover:text-blue text-grey-darker">Three</li>
-						</ul>
-
-						<div class="text-blue-light mb-2 mt-4">Blue-light</div>
-						<ul class="list-reset leading-normal">
-							<li class="hover:text-blue-light text-grey-darker">One</li>
-							<li class="hover:text-blue-light text-grey-darker">Two</li>
-							<li class="hover:text-blue-light text-grey-darker">Three</li>
-						</ul>
+					<div class="hover:shadow-outline rounded-md">
+						<div class="px-6 py-4">
+							<div class="font-bold text-xl mb-2">Diferrent between SCSS and SASS</div>
+							<p class="text-white text-base">
+								SASS is used when we need a original syntax, code syntax is not required for SCSS. SASS follows strict indentation, SCSS has no strict indentation. SASS has a loose syntax with white
+								space and no semicolons, the SCSS resembles more to CSS style and use of semicolons and braces are mandatory
+							</p>
+						</div>
+						<div class="px-6 py-4">
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+						</div>
 					</div>
-					<div class="sm:w-1/4 h-auto sm:mt-0 mt-8">
-						<div class="text-green-dark mb-2">Green-dark</div>
-						<ul class="list-reset leading-normal">
-							<li class="hover:text-green-dark text-grey-darker">One</li>
-							<li class="hover:text-green-dark text-grey-darker">Two</li>
-							<li class="hover:text-green-dark text-grey-darker">Three</li>
-						</ul>
-
-						<div class="text-green-light mb-2 mt-4">Green-light</div>
-						<ul class="list-reset leading-normal">
-							<li class="hover:text-green-light text-grey-darker">One</li>
-							<li class="hover:text-green-light text-grey-darker">Two</li>
-							<li class="hover:text-green-light text-grey-darker">Three</li>
-						</ul>
+					<div class="hover:shadow-outline rounded-md">
+						<div class="px-6 py-4">
+							<div class="font-bold text-xl mb-2">All Converter</div>
+							<p class="text-white text-base">
+								> SCSS to CSS
+							</p>
+							<p>
+								> SASS to CSS
+							</p>
+							<p>
+								> CSS to SCSS
+							</p>
+						</div>
+						<div class="px-6 py-4">
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+						</div>
 					</div>
-					<div class="sm:w-1/2 sm:mt-0 mt-8 h-auto">
-						<div class="text-red-light mb-2">Newsletter</div>
-						<p class="text-grey-darker leading-normal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur.</p>
+					<div class="hover:shadow-outline rounded-md">
+						<div class="px-6 py-4">
+							<div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+							<p class="text-white text-base">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+							</p>
+						</div>
+						<div class="px-6 py-4">
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
+							<span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="flex justify-end bg-pink-900 text-white p-8">
+				<span>Follow us on</span>
+				<a href="https://instagram.com/dickaismaji" target="_blank" rel="nofollow" class="ml-2" title="instagram">
+					<i class="fa fa-instagram"></i>
+				</a>
+				<a href="https://facebook.com/dickaismaji" target="_blank" rel="nofollow" class="ml-2" title="facebook">
+					<i class="fa fa-facebook-square"></i>
+				</a>
+				<a href="https://github.com/dicka88" target="_blank" rel="nofollow" class="ml-2" title="github">
+					<i class="fa fa-github-square"></i>
+				</a>
+				<a href="https://linkedin.com/in/dickaismaji" target="_blank" rel="nofollow" nofollow class="ml-2" title="linkedin">
+					<i class="fa fa-linkedin-square"></i>
+				</a>
+			</div>
 			<div class="flex bg-gray-800 pt-1 pb-4 justify-center text-4md text-white">
-				<span>don't mind other people, just do your will</span>
+				<small>Build with ❤️ by <a class="underline" href="https://github.com/dicka88">Dicka Ismaji</a> for developers</small>
 			</div>
 		</footer>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
@@ -323,6 +375,36 @@
 					window.URL.revokeObjectURL(url);
 				};
 			})();
+
+			// scss css switcher
+			function editor_switcher(to) {
+				console.log(to);
+
+				let ahref = document.querySelectorAll("#editor-switcher li a");
+				ahref.forEach((e) => e.classList.remove("bg-pink-700","text-white","font-semibold"));
+
+				switch (to) {
+					case "css":
+						document.querySelector(".css-wrapper").classList.remove("xs:hidden");
+						document.querySelector(".scss-wrapper").classList.add("xs:hidden");
+						document.querySelector('#editor-switcher #editor-switcher_css').classList.add("bg-pink-700","text-white","font-semibold")
+						csseditor.gotoLine(0,1)
+						break;
+					case "scss":
+						document.querySelector(".css-wrapper").classList.add("xs:hidden");
+						document.querySelector('#editor-switcher #editor-switcher_scss').classList.add("bg-pink-700","text-white","font-semibold")
+						document.querySelector(".scss-wrapper").classList.remove("xs:hidden");
+						break;
+					case "demo":
+						break;
+					default:
+				}
+			}
+
+			// navbar toggler 
+			function navbarToggle() {
+				document.querySelector('.navbar-item').classList.toggle('xs:hidden')
+			}
 
 			// scss toolbar
 			const scssFullscreen = () => (!document.fullscreen ? document.querySelector(".scss-wrapper").requestFullscreen() : document.exitFullscreen());

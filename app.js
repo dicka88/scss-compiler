@@ -25,6 +25,10 @@ app.get("/css-scss", (req, res) => {
 	res.sendFile("./views/css-scss.html", { root: __dirname });
 });
 
+app.get("/example", (req, res) => {
+	res.sendFile("./views/example.html", { root: __dirname });
+});
+
 app.use("/css", express.static("./public/css"));
 app.use("/images", express.static("./public/images"));
 app.use("/js", express.static("./public/js"));
