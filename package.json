@@ -5,7 +5,6 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "nodemon app.js",
-		"build": "npx postcss src/assets/tailwind.css -o public/css/tailwind.css"
 	},
 	"keywords": [
 		"scss",
