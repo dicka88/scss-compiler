@@ -40,7 +40,7 @@
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/register": "^7.10.4",
-    "nodemon": "latest",
+    "nodemon": "^2.0.4",
     "postcss-cli": "^7.1.1"
   }
 }
