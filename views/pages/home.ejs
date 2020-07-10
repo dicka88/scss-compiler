@@ -1,213 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<%- include('../partials/head') %>
-	</head>
-	<body>
-		<%- include('../partials/header') %>
-		<main>
-			<div class="flex justify-between items-center hidden xs:block mt-4 mb-1">
-				<div class="relative">
-					<ul id="editor-switcher" class="flex border-b">
-						<li class="mr-1">
-							<a
-								href="#"
-								id="editor-switcher_scss"
-								onclick="editor_switcher('scss')"
-								class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white bg-pink-700 text-white font-semibold"
-								>SCSS</a
-							>
-						</li>
-						<li class="mr-1">
-							<a href="#" id="editor-switcher_css" onclick="editor_switcher('css')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">CSS</a>
-						</li>
-						<li class="mr-1">
-							<a href="#" id="editor-switcher_demo" onclick="editor_switcher('')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">DEMO</a>
-						</li>
-						<button class="convert-button text-white absolute right-0 mr-2 w-8 h-8">
-							<i class="material-icons">play_arrow</i>
-						</button>
-					</ul>
-				</div>
-			</div>
-			<div class="flex mb-4" style="position: relative;">
-				<div class="w-1/2 xs:w-full mr-1 xs:mr-0 bg-gray-200 h-screen scss-wrapper">
-					<div class="flex px-3 py-1 justify-between bg-white">
-						<div style="margin: auto 0;">
-							<img src="./images/sass-icon.svg" style="height: 20px;" alt="" />
-						</div>
-						<div>
-							<button title="download" onclick="scssSaveFile()"><i class="material-icons">file_download</i></button>
-							<button title="copy" data-clipboard-target="#scss-editor" onclick="scssCopyClipboard()"><i class="material-icons">content_copy</i></button>
-							<button title="clear" onclick="scssClear()"><i class="material-icons">clear</i></button>
-							<button title="beautify scss" onclick="scssbeautify()"><i class="material-icons">format_paint</i></button>
-							<button title="fullscreen" onclick="scssFullscreen()"><i class="material-icons">fullscreen</i></button>
-						</div>
-					</div>
-					<div id="scss-editor" class="fullscreen"></div>
-				</div>
-				<div class="w-1/2 xs:w-full ml-1 xs:ml-0 bg-gray-900 h-screen css-wrapper xs:hidden">
-					<div class="flex px-3 py-1 justify-between bg-white">
-						<div style="margin: auto 0;" class="flex items-center justify-between">
-							<img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
-							<span class="pl-2">Result</span>
-							<span class="ml-4"><i class="fa fa-cog fa-spin"></i></span>
-						</div>
-						<div>
-							<button title="download"><i class="material-icons">file_download</i></button>
-							<button title="copy"><i class="material-icons">content_copy</i></button>
-							<button title="fullscreen" onclick="cssFullscreen()"><i class="material-icons">fullscreen</i></button>
-						</div>
-					</div>
-					<div id="css-editor"></div>
-				</div>
-				<div class="convert xs:hidden">
-					<button class="convert-button text-white">
-						<i class="material-icons">play_arrow</i>
-					</button>
-				</div>
-			</div>
-		</main>
-		<%- include('../partials/footer') %>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-beautify.js"></script>
-		<script src="/js/home.js"></script>
-		<script>
-			ace.require("ace/ext/language_tools");
-
-			var scsseditor = ace.edit("scss-editor");
-			scsseditor.setTheme("ace/theme/monokai");
-			scsseditor.session.setMode("ace/mode/scss");
-			scsseditor.setOptions({
-				enableBasicAutocompletion: false,
-				enableSnippets: false,
-				enableLiveAutocompletion: true,
-				tabSize: 2,
-				showPrintMargin: false,
-			});
-
-			/**
-			 * set value for demo
-			 */
-			scsseditor.setValue(`// write or paste your scss script here`, 1);
-
-			// for beautify
-			var beautify = ace.require("ace/ext/beautify");
-			function scssbeautify() {
-				beautify.beautify(scsseditor.session);
-			}
-
-			var csseditor = ace.edit("css-editor");
-			csseditor.setReadOnly(true);
-			csseditor.setTheme("ace/theme/monokai");
-			csseditor.session.setMode("ace/mode/css");
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				document.querySelector(".convert-button").addEventListener("click", fetchCss);
-			});
-		</script>
-		<script>
-			// listener
-			let debFetch = debounce(fetchCss, 1500);
-			scsseditor.session.on("change", function (delta) {
-				debFetch();
-			});
-
-			async function fetchCss() {
-				const stringScss = scsseditor.getValue();
-				if (!stringScss) return;
-
-				const data = await fetch("/api/scss-css", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						string: stringScss,
-					}),
-				});
-				if (!data) return;
-				const html = await data.text();
-				console.log(html);
-
-				csseditor.setValue(html, 1);
-			}
-
-			function debounce(callback, time) {
-				var timeout;
-				return function () {
-					clearTimeout(timeout);
-
-					timeout = setTimeout(callback, time);
-				};
-			}
-
-			// helper
-			// copy to clipboard from string
-			const copyClipboard = (string) => {
-				var el = document.createElement("textarea");
-				el.style.display = "hidden";
-				el.value = string;
-				document.body.appendChild(el);
-				el.select();
-				document.execCommand("copy");
-				document.body.removeChild(el);
-			};
-
-			// save file
-			const saveFile = (function () {
-				var a = document.createElement("a");
-				document.body.appendChild(a);
-				a.style = "display: none";
-				return function (data, fileName) {
-					// const string = Strin.toString
-					var blob = new Blob([data], { type: "octet/stream" }),
-						url = window.URL.createObjectURL(blob);
-					a.href = url;
-					a.download = fileName;
-					a.click();
-					window.URL.revokeObjectURL(url);
-				};
-			})();
-
-			// scss css switcher
-			function editor_switcher(to) {
-				console.log(to);
-
-				let ahref = document.querySelectorAll("#editor-switcher li a");
-				ahref.forEach((e) => e.classList.remove("bg-pink-700", "text-white", "font-semibold"));
-
-				switch (to) {
-					case "css":
-						document.querySelector(".css-wrapper").classList.remove("xs:hidden");
-						document.querySelector(".scss-wrapper").classList.add("xs:hidden");
-						document.querySelector("#editor-switcher #editor-switcher_css").classList.add("bg-pink-700", "text-white", "font-semibold");
-						csseditor.gotoLine(0, 1);
-						break;
-					case "scss":
-						document.querySelector(".css-wrapper").classList.add("xs:hidden");
-						document.querySelector("#editor-switcher #editor-switcher_scss").classList.add("bg-pink-700", "text-white", "font-semibold");
-						document.querySelector(".scss-wrapper").classList.remove("xs:hidden");
-						break;
-					case "demo":
-						break;
-					default:
-				}
-			}
-
-			// navbar toggler
-			function navbarToggle() {
-				document.querySelector(".navbar-item").classList.toggle("xs:hidden");
-			}
-
-			// scss toolbar
-			const scssFullscreen = () => (!document.fullscreen ? document.querySelector(".scss-wrapper").requestFullscreen() : document.exitFullscreen());
-			const scssCopyClipboard = () => copyClipboard(scsseditor.getValue());
-			const scssSaveFile = () => saveFile(scsseditor.getValue(), "scssdownload.scss");
-
-			const cssFullscreen = () => (!document.fullscreen ? document.querySelector(".css-wrapper").requestFullscreen() : document.exitFullscreen());
-		</script>
-	</body>
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <main>
+      <div class="flex justify-between items-center hidden xs:block mt-4 mb-1">
+        <div class="relative">
+          <ul id="editor-switcher" class="flex border-b">
+            <li class="mr-1">
+              <a
+                href="#"
+                id="editor-switcher_scss"
+                onclick="editor_switcher('scss')"
+                class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white bg-pink-700 text-white font-semibold"
+                >SCSS</a
+              >
+            </li>
+            <li class="mr-1">
+              <a href="#" id="editor-switcher_css" onclick="editor_switcher('css')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">CSS</a>
+            </li>
+            <li class="mr-1">
+              <a href="#" id="editor-switcher_demo" onclick="editor_switcher('')" class="bg-white inline-block border-1 rounded-t py-2 px-4 hover:bg-pink-800 hover:text-white">DEMO</a>
+            </li>
+            <button class="convert-button text-white absolute right-0 mr-2 w-8 h-8">
+              <i class="material-icons">play_arrow</i>
+            </button>
+          </ul>
+        </div>
+      </div>
+      <div class="flex mb-4" style="position: relative;">
+        <div class="w-1/2 xs:w-full mr-1 xs:mr-0 bg-gray-200 h-screen scss-wrapper">
+          <div class="flex px-3 py-1 justify-between bg-white">
+            <div style="margin: auto 0;">
+              <img src="./images/sass-icon.svg" style="height: 20px;" alt="" />
+            </div>
+            <div>
+              <button title="download" onclick="scssSaveFile()"><i class="material-icons">file_download</i></button>
+              <button title="copy" data-clipboard-target="#scss-editor" onclick="scssCopyClipboard()"><i class="material-icons">content_copy</i></button>
+              <button title="clear" onclick="scssClear()"><i class="material-icons">clear</i></button>
+              <button title="beautify scss" onclick="scssbeautify()"><i class="material-icons">format_paint</i></button>
+              <button title="fullscreen" onclick="scssFullscreen()"><i class="material-icons">fullscreen</i></button>
+            </div>
+          </div>
+          <div id="scss-editor" class="fullscreen"></div>
+        </div>
+        <div class="w-1/2 xs:w-full ml-1 xs:ml-0 bg-gray-900 h-screen css-wrapper xs:hidden">
+          <div class="flex px-3 py-1 justify-between bg-white">
+            <div style="margin: auto 0;" class="flex items-center justify-between">
+              <img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
+              <span class="pl-2">Result</span>
+              <span class="ml-4"><i class="fa fa-cog fa-spin"></i></span>
+            </div>
+            <div>
+              <button title="download"><i class="material-icons">file_download</i></button>
+              <button title="copy"><i class="material-icons">content_copy</i></button>
+              <button title="fullscreen" onclick="cssFullscreen()"><i class="material-icons">fullscreen</i></button>
+            </div>
+          </div>
+          <div id="css-editor"></div>
+        </div>
+        <div class="convert xs:hidden">
+          <button class="convert-button text-white">
+            <i class="material-icons">play_arrow</i>
+          </button>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-beautify.js"></script>
+    <script src="/js/home.js"></script>
+  </body>
 </html>

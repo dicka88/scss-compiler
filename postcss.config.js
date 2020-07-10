@@ -1,6 +1,7 @@
 require("dotenv").config();
 const cssnano = require("cssnano");
 const purgecss = require("@fullhuman/postcss-purgecss");
+const postImport = require('postcss-import')
 
 const isDev = process.env.environment === "development";
 
@@ -13,5 +14,5 @@ const purge = () => {
 };
 
 module.exports = {
-	plugins: [require("tailwindcss"), require("autoprefixer"), cssnano({ present: "default" }), purge()],
+	plugins: [postImport(), require("tailwindcss"), require("autoprefixer"), cssnano({ present: "default" }), purge()],
 };

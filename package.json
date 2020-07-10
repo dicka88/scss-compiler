@@ -1,37 +1,46 @@
 {
-	"name": "scss-compiler",
-	"version": "1.0.0",
-	"description": "Compiler online for scss/sass to css",
-	"main": "app.js",
-	"scripts": {
-		"start": "node app.js",
-		"build": "postcss src/assets/tailwind.css -o public/css/tailwind.css",
-		"watch": "nodemon app.js"
-	},
-	"keywords": [
-		"scss",
-		"compiler",
-		"sass",
-		"css",
-		"express"
-	],
-	"author": "dickaismaji",
-	"license": "MIT",
-	"dependencies": {
-		"@fullhuman/postcss-purgecss": "^2.3.0",
-		"autoprefixer": "^9.8.4",
-		"body-parser": "^1.19.0",
-		"cssnano": "^4.1.10",
-		"dotenv": "^8.2.0",
-		"ejs": "^3.1.3",
-		"express": "^4.17.1",
-		"morgan": "^1.10.0",
-		"node-sass": "^4.14.1",
-		"styleflux": "^1.2.0",
-		"tailwindcss": "^1.4.6"
-	},
-	"devDependencies": {
-		"postcss-cli": "^7.1.1",
-		"nodemon": "latest"
-	}
+  "name": "scss-compiler",
+  "version": "1.0.0",
+  "description": "Compiler online for scss/sass to css",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "postcss src/assets/css/tailwind.css -o public/css/tailwind.css",
+    "gulp": "gulp",
+    "watch": "nodemon app.js"
+  },
+  "keywords": [
+    "scss",
+    "compiler",
+    "sass",
+    "css",
+    "express"
+  ],
+  "author": "dickaismaji",
+  "license": "MIT",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "autoprefixer": "^9.8.4",
+    "body-parser": "^1.19.0",
+    "cssnano": "^4.1.10",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglyfly": "^1.4.2",
+    "morgan": "^1.10.0",
+    "node-sass": "^4.14.1",
+    "postcss-import": "^12.0.1",
+    "styleflux": "^1.2.0",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.4",
+    "nodemon": "latest",
+    "postcss-cli": "^7.1.1"
+  }
 }
