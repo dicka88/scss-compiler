@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-// const ejs = require('ejs')
 const app = express();
 
 /**
@@ -16,23 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.set("view engine", "ejs");
 
-/**
- * Prototype !!!! ///**** *
- */
-app.get("/ejs", (req, res) => {
-	res.render("pages/home", { name: "Dicka Ismaji" });
-});
-
 app.get("/", (req, res) => {
-	res.sendFile("./views/scss-css.html", { root: __dirname });
-});
-
-app.get("/css-scss", (req, res) => {
-	res.sendFile("./views/css-scss.html", { root: __dirname });
-});
-
-app.get("/example", (req, res) => {
-	res.sendFile("./views/example.html", { root: __dirname });
+	res.render("pages/home");
 });
 
 app.use("/css", express.static("./public/css"));
