@@ -1,6 +1,6 @@
 // home page
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".convert-button").addEventListener("click", fetchCss);
 });
 ace.require("ace/ext/language_tools");
@@ -19,7 +19,11 @@ scsseditor.setOptions({
 /**
  * set value for demo
  */
-scsseditor.setValue(`// paste your scss script here`, 1);
+scsseditor.setValue(
+  `// paste your scss script here
+`,
+  1
+);
 
 // for beautify
 var beautify = ace.require("ace/ext/beautify");
@@ -35,7 +39,7 @@ csseditor.session.setMode("ace/mode/css");
 
 // listener
 let debFetch = debounce(fetchCss, 1500);
-scsseditor.session.on("change", function(delta) {
+scsseditor.session.on("change", function (delta) {
   debFetch();
 });
 
@@ -61,7 +65,7 @@ async function fetchCss() {
 
 function debounce(callback, time) {
   var timeout;
-  return function() {
+  return function () {
     clearTimeout(timeout);
 
     timeout = setTimeout(callback, time);
@@ -81,14 +85,14 @@ const copyClipboard = (string) => {
 };
 
 // save file
-const saveFile = (function() {
+const saveFile = (function () {
   var a = document.createElement("a");
   document.body.appendChild(a);
   a.style = "display: none";
-  return function(data, fileName) {
+  return function (data, fileName) {
     // const string = Strin.toString
     var blob = new Blob([data], {
-        type: "octet/stream"
+        type: "octet/stream",
       }),
       url = window.URL.createObjectURL(blob);
     a.href = url;
@@ -103,18 +107,24 @@ function editor_switcher(to) {
   console.log(to);
 
   let ahref = document.querySelectorAll("#editor-switcher li a");
-  ahref.forEach((e) => e.classList.remove("bg-pink-700", "text-white", "font-semibold"));
+  ahref.forEach((e) =>
+    e.classList.remove("bg-pink-700", "text-white", "font-semibold")
+  );
 
   switch (to) {
     case "css":
       document.querySelector(".css-wrapper").classList.remove("xs:hidden");
       document.querySelector(".scss-wrapper").classList.add("xs:hidden");
-      document.querySelector("#editor-switcher #editor-switcher_css").classList.add("bg-pink-700", "text-white", "font-semibold");
+      document
+        .querySelector("#editor-switcher #editor-switcher_css")
+        .classList.add("bg-pink-700", "text-white", "font-semibold");
       csseditor.gotoLine(0, 1);
       break;
     case "scss":
       document.querySelector(".css-wrapper").classList.add("xs:hidden");
-      document.querySelector("#editor-switcher #editor-switcher_scss").classList.add("bg-pink-700", "text-white", "font-semibold");
+      document
+        .querySelector("#editor-switcher #editor-switcher_scss")
+        .classList.add("bg-pink-700", "text-white", "font-semibold");
       document.querySelector(".scss-wrapper").classList.remove("xs:hidden");
       break;
     case "demo":
@@ -129,8 +139,14 @@ function navbarToggle() {
 }
 
 // scss toolbar
-const scssFullscreen = () => (!document.fullscreen ? document.querySelector(".scss-wrapper").requestFullscreen() : document.exitFullscreen());
+const scssFullscreen = () =>
+  !document.fullscreen
+    ? document.querySelector(".scss-wrapper").requestFullscreen()
+    : document.exitFullscreen();
 const scssCopyClipboard = () => copyClipboard(scsseditor.getValue());
 const scssSaveFile = () => saveFile(scsseditor.getValue(), "scssdownload.scss");
 
-const cssFullscreen = () => (!document.fullscreen ? document.querySelector(".css-wrapper").requestFullscreen() : document.exitFullscreen());
+const cssFullscreen = () =>
+  !document.fullscreen
+    ? document.querySelector(".css-wrapper").requestFullscreen()
+    : document.exitFullscreen();
