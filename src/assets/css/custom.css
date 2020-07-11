@@ -1,4 +1,5 @@
 /* custom css */
+/* purgecss start ignore */
 #css-editor,
 #scss-editor {
   height: 100% !important;
@@ -54,3 +55,4 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+/* purgecss end ignore */

@@ -51,11 +51,11 @@
             <div style="margin: auto 0;" class="flex items-center justify-between">
               <img src="./images/css3-icon.svg" style="height: 24px;" alt="" />
               <span class="pl-2">Result</span>
-              <span class="ml-4"><i class="fa fa-cog fa-spin"></i></span>
+              <span class="ml-4 convert-loading hidden"><i class="fa fa-cog fa-spin"></i></span>
             </div>
             <div>
-              <button title="download"><i class="material-icons">file_download</i></button>
-              <button title="copy"><i class="material-icons">content_copy</i></button>
+              <button title="download" onclick="cssSaveFile()"><i class="material-icons">file_download</i></button>
+              <button title="copy" onclick="cssCopyClipboard()"><i class="material-icons">content_copy</i></button>
               <button title="fullscreen" onclick="cssFullscreen()"><i class="material-icons">fullscreen</i></button>
             </div>
           </div>

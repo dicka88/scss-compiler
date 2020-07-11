@@ -1,7 +1,9 @@
 // home page
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector(".convert-button").addEventListener("click", fetchCss);
+  document
+    .querySelectorAll(".convert-button")
+    .forEach((e) => e.addEventListener("click", fetchCss));
 });
 ace.require("ace/ext/language_tools");
 
@@ -19,11 +21,7 @@ scsseditor.setOptions({
 /**
  * set value for demo
  */
-scsseditor.setValue(
-  `// paste your scss script here
-`,
-  1
-);
+scsseditor.setValue("// paste your scss script here", 1);
 
 // for beautify
 var beautify = ace.require("ace/ext/beautify");
@@ -44,9 +42,12 @@ scsseditor.session.on("change", function (delta) {
 });
 
 async function fetchCss() {
+  let convertLoading = document.querySelector(".convert-loading");
+
   const stringScss = scsseditor.getValue();
   if (!stringScss) return;
 
+  convertLoading.classList.toggle("hidden");
   const data = await fetch("/api/scss-css", {
     method: "POST",
     headers: {
@@ -57,8 +58,8 @@ async function fetchCss() {
     }),
   });
   if (!data) return;
+  convertLoading.classList.toggle("hidden");
   const html = await data.text();
-  console.log(html);
 
   csseditor.setValue(html, 1);
 }
@@ -90,7 +91,6 @@ const saveFile = (function () {
   document.body.appendChild(a);
   a.style = "display: none";
   return function (data, fileName) {
-    // const string = Strin.toString
     var blob = new Blob([data], {
         type: "octet/stream",
       }),
@@ -150,3 +150,5 @@ const cssFullscreen = () =>
   !document.fullscreen
     ? document.querySelector(".css-wrapper").requestFullscreen()
     : document.exitFullscreen();
+const cssCopyClipboard = () => copyClipboard(csseditor.getValue());
+const cssSaveFile = () => saveFile(csseditor.getValue(), "cssdownload.css");

@@ -9,6 +9,7 @@ const purge = () => {
   return purgecss({
     content: ["./views/**/*.ejs"],
     defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+    whitelist: ["ace_scrollbar"],
   });
 };
 
