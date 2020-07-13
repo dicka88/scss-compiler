@@ -7,7 +7,7 @@ const isDev = process.env.environment === "development";
 const purge = () => {
   if (isDev) return null;
   return purgecss({
-    content: ["./views/**/*.ejs"],
+    content: ["./src/views/**/*.ejs"],
     defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
     whitelist: ["ace_scrollbar"],
   });
