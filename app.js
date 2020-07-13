@@ -26,6 +26,7 @@ app.use("/", webRouter);
 app.use("/css", express.static("./public/css"));
 app.use("/images", express.static("./public/images"));
 app.use("/js", express.static("./public/js"));
+app.use("/", express.static("./public/other"));
 
 app.use("/api", apiRouter);
 app.use("*", (req, res) => res.status(404).render("pages/404"));
