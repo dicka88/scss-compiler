@@ -13,10 +13,6 @@ routes.get("/", (req, res) => {
   res.render("pages/home");
 });
 
-// routes.get("/css-scss", (req, res) => {
-//   res.render("pages/home");
-// });
-
 routes.get("/sass-css", (req, res) => {
   res.render("pages/sass-css");
 });
