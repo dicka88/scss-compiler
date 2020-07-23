@@ -26,4 +26,4 @@ const ejs = () =>
   .pipe(tiny({ removeComment: true }))
   .pipe(dest("./views/"));
 
-export default series(ejs, js, css, images, svg);
+export default series(ejs, js, css, svg);
